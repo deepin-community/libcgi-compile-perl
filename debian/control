@@ -1,15 +1,45 @@
-Source: template-repository
-Section: unknown
+Source: libcgi-compile-perl
+Maintainer: Debian Perl Group <pkg-perl-maintainers@lists.alioth.debian.org>
+Uploaders: gregor herrmann <gregoa@debian.org>,
+           Xavier Guimard <yadd@debian.org>
+Section: perl
+Testsuite: autopkgtest-pkg-perl
 Priority: optional
-Maintainer: Tsic404 <liuheng@deepin.org>
-Build-Depends: debhelper (>= 11)
-Standards-Version: 4.1.3
-Homepage: https://github.com/deepin-community/template-repository
-#Vcs-Browser: https://salsa.debian.org/debian/deepin-community-template-repository
-#Vcs-Git: https://salsa.debian.org/debian/deepin-community-template-repository.git
+Build-Depends: debhelper-compat (= 13),
+               libmodule-build-tiny-perl,
+               perl
+Build-Depends-Indep: libcapture-tiny-perl <!nocheck>,
+                     libcgi-pm-perl <!nocheck>,
+                     libfile-pushd-perl <!nocheck>,
+                     libfilter-perl <!nocheck>,
+                     libsub-identify-perl <!nocheck>,
+                     libsub-name-perl <!nocheck>,
+                     libtest-nowarnings-perl <!nocheck>,
+                     libtest-requires-perl <!nocheck>,
+                     libtry-tiny-perl <!nocheck>
+# commented out to avoid a circular build dependency
+# libcgi-emulate-psgi-perl <!nocheck>,
+# libplack-perl <!nocheck>,
+Standards-Version: 4.6.2
+Vcs-Browser: https://salsa.debian.org/perl-team/modules/packages/libcgi-compile-perl
+Vcs-Git: https://salsa.debian.org/perl-team/modules/packages/libcgi-compile-perl.git
+Homepage: https://metacpan.org/release/CGI-Compile
+Rules-Requires-Root: no
 
-Package: template-repository
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: <insert up to 60 chars description>
- <insert long description, indented with spaces>
+Package: libcgi-compile-perl
+Architecture: all
+Depends: ${misc:Depends},
+         ${perl:Depends},
+         libfile-pushd-perl,
+         libsub-name-perl
+Recommends: libcgi-emulate-psgi-perl
+Description: module for compiling .cgi scripts to a code reference
+ CGI::Compile is an utility to compile CGI scripts into a code reference that
+ can run many times on its own namespace, as long as the script is ready to
+ run on a persistent environment.
+ .
+ NOTE: for best results, load CGI::Compile before any modules used by your
+ CGIs.
+ .
+ Combined with CGI::Emulate::PSGI, your CGI script can be turned into a
+ persistent PSGI application.
